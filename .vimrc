@@ -29,18 +29,14 @@ Plugin 'VundleVim/Vundle.vim'
 " different version somewhere else.
 " Plugin 'ascenator/L9', {'name': 'newL9'}
 
-Plugin 'tpope/vim-fugitive'
 Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
-Plugin 'itchyny/lightline.vim'
 Plugin 'tpope/vim-surround'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
+Plugin 'tpope/vim-repeat'
+Plugin 'airblade/vim-rooter'
+Plugin 'neoclide/coc.nvim', {'branch': 'release'}
 Plugin 'leafgarland/typescript-vim'
 Plugin 'peitalin/vim-jsx-typescript'
-Plugin 'quramy/tsuquyomi'
-Plugin 'prettier/vim-prettier'
-Plugin 'tpope/vim-repeat'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -62,67 +58,135 @@ set shell=/bin/bash
 
 " END FOR VUNDLE!!
 
-" FOR AIRLINE
-set noshowmode
-set laststatus=2
-if !has('gui_running')
-  set t_Co=256
+let mapleader = "\<Space>"
+
+" BEGIN coc.nvim
+
+let g:coc_global_extensions = [
+      \ 'coc-tsserver',
+      \ 'coc-rls',
+      \ 'coc-prettier',
+      \ 'coc-eslint',
+      \ ]
+let g:coc_user_config = {
+      \ "coc.preferences.formatOnSaveFiletypes": [
+        \ "rust",
+        \ "css",
+        \ "markdown",
+        \ "javascript",
+        \ "javascriptreact",
+        \ "typescript",
+        \ "typescriptreact",
+      \ ],
+      \ "suggest.floatEnable": v:false,
+      \ "diagnostic.messageTarget": "echo",
+      \ }
+
+" TextEdit might fail if hidden is not set.
+set hidden
+
+" Some servers have issues with backup files, see #649.
+set nobackup
+set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 endif
 
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head',
-      \   'filename': 'LightLineFilename'
-      \ },
-      \ }
-function! LightLineFilename()
-  return expand('%')
+" Use `[g` and `]g` to navigate diagnostics
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
 endfunction
-" END AIRLINE
 
-" BEGIN PRETTIER
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
 
-" END PRETTIER
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
-" FOR RUBYFMT
+" END coc.nvim
 
-" Not ready yet!
+" BEGIN TYPESCRIPT
 
-" function Rubyfmt()
-"   echo "Calling rubyfmt"
-"   silent exec("!ruby --disable=gems ~/bin/rubyfmt.rb -i " . expand("%"))
-"   silent exec("edit " . expand("%"))
-" endfunction
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 
-" au BufWritePost *.rb call Rubyfmt()
-
-" END RUBYFMT
+" END TYPESCRIPT
 
 " FOR EVERYTHING ELSE
 
 set number
 "set relativenumber
 syntax enable
-colorscheme elflord
 set expandtab
 set shiftwidth=2
 set softtabstop=2
+
+set undodir=~/.vim/undodir
+set undofile " Maintain undo history between sessions
 
 noremap <Up> <Nop>
 noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
-let mapleader = "\<Space>"
 nnoremap <leader>f :FZF<cr>
+noremap <leader>k :call TrimWhiteSpace()<CR>
 
 set list
 set listchars=tab:»\ ,extends:›,precedes:‹,nbsp:·,trail:·
@@ -133,12 +197,5 @@ function TrimWhiteSpace()
   %s/\s*$//
   ''
 endfunction
-
-noremap <leader>k :call TrimWhiteSpace()<CR>
-
-hi DiffAdd guifg=NONE ctermfg=NONE guibg=#464632 ctermbg=238 gui=NONE cterm=NONE
-hi DiffChange guifg=NONE ctermfg=NONE guibg=#335261 ctermbg=239 gui=NONE cterm=NONE
-hi DiffDelete guifg=#f43753 ctermfg=203 guibg=#79313c ctermbg=237 gui=NONE cterm=NONE
-hi DiffText guifg=NONE ctermfg=NONE guibg=NONE ctermbg=NONE gui=reverse cterm=reverse
 
 " END EVERYTHING ELSE
