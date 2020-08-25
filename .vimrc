@@ -72,6 +72,7 @@ let g:coc_user_config = {
       \ "coc.preferences.formatOnSaveFiletypes": [
         \ "rust",
         \ "css",
+        \ "scss",
         \ "markdown",
         \ "javascript",
         \ "javascriptreact",
@@ -80,6 +81,7 @@ let g:coc_user_config = {
       \ ],
       \ "suggest.floatEnable": v:false,
       \ "diagnostic.messageTarget": "echo",
+      \ "eslint.autoFixOnSave": v:true,
       \ }
 
 " TextEdit might fail if hidden is not set.
@@ -156,10 +158,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 
-" Formatting selected code.
-xmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
 " END coc.nvim
 
 " BEGIN TYPESCRIPT
@@ -185,7 +183,13 @@ noremap <Down> <Nop>
 noremap <Left> <Nop>
 noremap <Right> <Nop>
 
+" Tell FZF to use RG - so we can skip .gitignore files even if not using
+" :GitFiles search
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 nnoremap <leader>f :FZF<cr>
+" If you want gitignored files:
+"let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore-vcs --hidden'
+
 noremap <leader>k :call TrimWhiteSpace()<CR>
 
 set list
