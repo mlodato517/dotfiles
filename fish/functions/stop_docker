@@ -1,0 +1,4 @@
+function stop_docker
+  docker stop (docker ps -aq)
+  docker container prune
+end
