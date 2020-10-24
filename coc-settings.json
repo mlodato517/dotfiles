@@ -1,0 +1,15 @@
+{
+  "coc.preferences.formatOnSaveFiletypes": [
+    "rust",
+    "css",
+    "scss",
+    "markdown",
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact"
+  ],
+  "suggest.floatEnable": false,
+  "diagnostic.messageTarget": "echo",
+  "eslint.autoFixOnSave": true
+}
