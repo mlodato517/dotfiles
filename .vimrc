@@ -62,28 +62,6 @@ let mapleader = "\<Space>"
 
 " BEGIN coc.nvim
 
-let g:coc_global_extensions = [
-      \ 'coc-tsserver',
-      \ 'coc-rls',
-      \ 'coc-prettier',
-      \ 'coc-eslint',
-      \ ]
-let g:coc_user_config = {
-      \ "coc.preferences.formatOnSaveFiletypes": [
-        \ "rust",
-        \ "css",
-        \ "scss",
-        \ "markdown",
-        \ "javascript",
-        \ "javascriptreact",
-        \ "typescript",
-        \ "typescriptreact",
-      \ ],
-      \ "suggest.floatEnable": v:false,
-      \ "diagnostic.messageTarget": "echo",
-      \ "eslint.autoFixOnSave": v:true,
-      \ }
-
 " TextEdit might fail if hidden is not set.
 set hidden
 
