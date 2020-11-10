@@ -7,9 +7,10 @@
     "javascript",
     "javascriptreact",
     "typescript",
-    "typescriptreact"
+    "typescriptreact",
+    "json"
   ],
   "suggest.floatEnable": false,
   "diagnostic.messageTarget": "echo",
-  "eslint.autoFixOnSave": true
+  "rust-analyzer.checkOnSave.command": "clippy"
 }

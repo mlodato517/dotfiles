@@ -62,6 +62,16 @@ let mapleader = "\<Space>"
 
 " BEGIN coc.nvim
 
+let g:coc_global_extensions = [
+  \ 'coc-rust-analyzer',
+  \ 'coc-markdownlint',
+  \ 'coc-sql',
+  \ 'coc-eslint',
+  \ 'coc-prettier',
+  \ 'coc-tsserver',
+  \ 'coc-json'
+]
+
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -152,6 +162,7 @@ syntax enable
 set expandtab
 set shiftwidth=2
 set softtabstop=2
+set clipboard=unnamedplus
 
 set undodir=~/.vim/undodir
 set undofile " Maintain undo history between sessions
@@ -179,5 +190,7 @@ function TrimWhiteSpace()
   %s/\s*$//
   ''
 endfunction
+
+set nowrap
 
 " END EVERYTHING ELSE
