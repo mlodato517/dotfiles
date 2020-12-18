@@ -16,10 +16,16 @@ right now are:
 This copies over some FISH specific config files so, if you're not using
 FISH, ignore those.
 
+There are also some aliases in here you may need to install things for such as:
+
+- `exa`
+
 ## Terminal
 
 This copies over some Alacritty specific config files so, if you're not using
 that, ignore those.
+
+The assumed prompt is Starship so you might want that too.
 
 ## Brewfile (MacOS)
 
