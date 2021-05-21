@@ -10,7 +10,8 @@
     "typescriptreact",
     "json"
   ],
-  "suggest.floatEnable": false,
-  "diagnostic.messageTarget": "echo",
-  "rust-analyzer.checkOnSave.command": "clippy"
+  "rust-analyzer.checkOnSave.command": "clippy",
+  "rust-analyzer.diagnostics.enableExperimental": false,
+  "rust-analyzer.procMacro.enable": true,
+  "rust-analyzer.cargo.loadOutDirsFromCheck": true
 }
