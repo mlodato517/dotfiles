@@ -6,7 +6,7 @@ add_newline = false
 success_symbol = "[➜](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
 
 [cmd_duration]
-format = "[$duration]($style)"
+format = " [$duration]($style)"
 [directory]
 format = "[$path]($style)[$read_only]($read_only_style)"
 truncate_to_repo = false
@@ -15,9 +15,13 @@ truncation_symbol = ".../"
 format = "|[$branch]($style)"
 [package]
 disabled = true
+[aws]
+disabled = true
+[python]
+disabled = true
 [ruby]
 disabled = true
 [rust]
 disabled = true
 
-format = "$directory|$git_branch|$git_state"
+format = "$directory|$git_branch$git_state"
