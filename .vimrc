@@ -6,7 +6,7 @@ filetype off                  " required
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 
 Plug 'tpope/vim-fugitive'
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -21,19 +21,12 @@ filetype plugin indent on    " required
 " To ignore plugin indent changes, instead use:
 "filetype plugin on
 "
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-" see :h vundle for more details or wiki for FAQ
 " Put your non-Plugin stuff after this line
 
 " Because fish shell
 set shell=/bin/bash
 
-" END FOR VUNDLE!!
+" END FOR VIM-PLUG!!
 
 let mapleader = "\<Space>"
 
@@ -163,13 +156,17 @@ noremap <Right> <Nop>
 " FOR FZF
 
 " Tell FZF to use RG - so we can skip .gitignore files even if not using
-" :GitFiles search
-let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+" :GitFiles
+"
+" I've been getting lots of memory errors when using space + f
+" I wonder if it's because of this ... lemme try to not use it for now :shrug:
+"
+let $FZF_DEFAULT_COMMAND = 'rg --files --hidden -s'
 nnoremap <leader>f :FZF<cr>
 " does this work?
-let g:fzf_layout = { 'window': '-tabnew' }
+" let g:fzf_layout = { 'window': '-tabnew' }
 " If you want gitignored files:
-"let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore-vcs --hidden'
+" let $FZF_DEFAULT_COMMAND = 'rg --files --no-ignore-vcs --hidden'
 
 " END FZF
 
