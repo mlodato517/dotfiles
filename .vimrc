@@ -12,8 +12,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'airblade/vim-rooter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -36,10 +34,8 @@ let g:coc_global_extensions = [
   \ 'coc-rust-analyzer',
   \ 'coc-markdownlint',
   \ 'coc-sql',
-  \ 'coc-eslint',
-  \ 'coc-prettier',
-  \ 'coc-tsserver',
   \ 'coc-json',
+  \ 'coc-prettier',
   \ ]
 
 " TextEdit might fail if hidden is not set.

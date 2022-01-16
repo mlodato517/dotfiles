@@ -32,9 +32,14 @@ schemes:
         white:   '#fdf6e3' # base3
 colors: *dark
 font:
-  size: 16.0
+  size: 9.0
 selection:
   save_to_clipboard: true
+# Do either of these work?
 mouse:
   url:
     launcher: None
+hints:
+  mouse:
+    url:
+      launcher: None
