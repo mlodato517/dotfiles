@@ -1,3 +1,6 @@
+# https://clubmate.fi/alacritty
+# https://github.com/alacritty/alacritty/blob/master/alacritty.yml
+
 schemes:
   solarized_dark: &dark
     primary:
@@ -30,16 +33,27 @@ schemes:
         magenta: '#6c71c4' # violet
         cyan:    '#93a1a1' # base1
         white:   '#fdf6e3' # base3
+
 colors: *dark
+
 font:
   size: 9.0
+
 selection:
   save_to_clipboard: true
+  # This string contains all characters that are used as separators for
+  # "semantic words" in Alacritty.
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+
 # Do either of these work?
 mouse:
   url:
     launcher: None
 hints:
   mouse:
-    url:
-      launcher: None
+    enabled: false
+
+shell:
+  program: /usr/bin/fish
+  args:
+    - --login
