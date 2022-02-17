@@ -197,4 +197,7 @@ set statusline+=%=
 set statusline+=\ %l:%c
 set statusline+=\ 
 
+" 'jk' exits insert mode - courtesy of Andrew Halle
+inoremap jk <ESC>
+
 " END EVERYTHING ELSE
