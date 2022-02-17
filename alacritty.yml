@@ -45,10 +45,6 @@ selection:
   # "semantic words" in Alacritty.
   semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
 
-# Do either of these work?
-mouse:
-  url:
-    launcher: None
 hints:
   mouse:
     enabled: false
