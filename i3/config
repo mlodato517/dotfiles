@@ -178,6 +178,7 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
+        output primary
         status_command i3status
 }
 
@@ -195,3 +196,36 @@ bindsym $mod+Control+l exec i3lock -e -c 000000
 
 # Follow https://wiki.archlinux.org/title/HiDPI#X_Resources
 # to get external 4k monitor correct even though nothing goes in here.
+
+# Start redshift for redness
+exec --no-startup-id redshift -O 2500
+
+# https://i3wm.org/docs/userguide.html#_scratchpad
+# Make the currently focused window a scratchpad
+bindsym $mod+Shift+minus move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod+minus scratchpad show
+
+# Start bluetooth ... thing
+exec --no-startup-id blueman-applet
+
+# From Andrew - allow easily locking/shutting down, etc.
+# From https://gitlab.manjaro.org/packages/community/i3/i3exit.
+# Set shut down, restart and locking features
+# bindsym $mod+Delete mode "$mode_system"
+# bindsym $mod+Pause mode "$mode_system"
+# set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
+# mode "$mode_system" {
+#     bindsym l exec --no-startup-id i3exit lock, mode "default"
+#     bindsym s exec --no-startup-id i3exit suspend, mode "default"
+#     bindsym u exec --no-startup-id i3exit switch_user, mode "default"
+#     bindsym e exec --no-startup-id i3exit logout, mode "default"
+#     bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+#     bindsym r exec --no-startup-id i3exit reboot, mode "default"
+#     bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+# 
+#     # exit system mode: "Enter" or "Escape"
+#     bindsym Return mode "default"
+#     bindsym Escape mode "default"
+# }
