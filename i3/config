@@ -187,5 +187,11 @@ exec --no-startup-id xset r rate 200 40
 # Configure monitors
 exec --no-startup-id xrandr --output DP-0 --primary --output eDP-1-1 --left-of DP-0
 
-# Disable capslock
-exec --no-startup-id setxkbmap -option caps:none
+# Map capslock to windows key
+exec --no-startup-id setxkbmap -option caps:super
+
+# Hotkey for screen lock
+bindsym $mod+Control+l exec i3lock -e -c 000000
+
+# Follow https://wiki.archlinux.org/title/HiDPI#X_Resources
+# to get external 4k monitor correct even though nothing goes in here.
