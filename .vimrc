@@ -12,6 +12,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'airblade/vim-rooter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/vim-emoji'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -27,6 +28,12 @@ set shell=/bin/bash
 " END FOR VIM-PLUG!!
 
 let mapleader = "\<Space>"
+
+" BEGIN vim-emoji
+
+set completefunc=emoji#complete
+
+" END vim-emoji
 
 " BEGIN coc.nvim
 
@@ -57,7 +64,7 @@ set shortmess+=c
 
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-if has("patch-8.1.1564")
+if has("nvim-0.5.0") || has("patch-8.1.1564")
   " Recently vim can merge signcolumn and number column into one
   set signcolumn=number
 else
@@ -73,7 +80,7 @@ inoremap <silent><expr> <TAB>
       \ coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
+function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
@@ -84,6 +91,11 @@ if has('nvim')
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
+
+" Make <CR> auto-select the first completion item and notify coc.nvim to
+" format on enter, <cr> could be remapped by other vim plugin
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
@@ -96,15 +108,13 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+nnoremap <silent> K :call <SID>ShowDocumentation()()<CR>
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  elseif (coc#rpc#ready())
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
     call CocActionAsync('doHover')
   else
-    execute '!' . &keywordprg . " " . expand('<cword>')
+    call feedkeys('K', 'in')
   endif
 endfunction
 
@@ -197,10 +207,19 @@ set statusline+=%=
 set statusline+=\ %l:%c
 set statusline+=\ 
 
-" 'jk' exits insert mode - courtesy of Andrew Halle
+" Map 'jk' to Esc so that exits insert mode courtesy of AHalle
 inoremap jk <ESC>
 
 " And disable my old way of doing things to help me learn!
 inoremap <C-[> <nop>
+
+" https://github.com/rust-lang/rust.vim/issues/198#issuecomment-403266750
+" and https://vim.fandom.com/wiki/Fix_syntax_highlighting :shrug:
+autocmd BufEnter * :syntax sync fromstart
+
+" Much better tab completion - only tab to first common string. Then require
+" other keystrokes.
+set wildmode=longest,list,full
+set wildmenu
 
 " END EVERYTHING ELSE

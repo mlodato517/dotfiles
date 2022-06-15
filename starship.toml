@@ -23,5 +23,7 @@ disabled = true
 disabled = true
 [rust]
 disabled = true
+[vagrant]
+disabled = true
 
 format = "$directory|$git_branch$git_state"
