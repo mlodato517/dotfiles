@@ -1,12 +1,15 @@
-# for rbenv!
-status --is-interactive; and source (rbenv init -|psub)
-
-# for keychain!
-eval (ssh-agent -c)
-
 set PATH $PATH $HOME/.cargo/bin
+
+eval (ssh-agent -c)
+set -Ux SSH_AUTH_SOCK $SSH_AUTH_SOCK
+set -Ux SSH_AGENT_PID $SSH_AGENT_PID
+ssh-add ~/.ssh/github_id_ed25519
+
+starship init fish | source
+
+# From sway docs for Fish shell
+set TTY1 (tty)
+[ "$TTY1" = "/dev/tty1" ] && exec sway
 
 set -gx NVIM "/usr/local/bin/nvim"
 set -gx EDITOR "nvim"
-set -g fish_user_paths "/usr/local/opt/gettext/bin" $fish_user_paths
-set -g fish_user_paths "/usr/local/opt/node@12/bin" $fish_user_paths
