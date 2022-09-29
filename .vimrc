@@ -5,14 +5,14 @@ filetype off                  " required
 " FOR VIM-PLUG!!
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
 
-Plug 'tpope/vim-fugitive'
+" Plug 'tpope/vim-fugitive'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'airblade/vim-rooter'
+" Plug 'airblade/vim-rooter'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'junegunn/vim-emoji'
+" Plug 'junegunn/vim-emoji'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -29,12 +29,6 @@ set shell=/bin/bash
 
 let mapleader = "\<Space>"
 
-" BEGIN vim-emoji
-
-set completefunc=emoji#complete
-
-" END vim-emoji
-
 " BEGIN coc.nvim
 
 let g:coc_global_extensions = [
@@ -45,40 +39,31 @@ let g:coc_global_extensions = [
   \ 'coc-prettier',
   \ ]
 
-" TextEdit might fail if hidden is not set.
-set hidden
-
 " Some servers have issues with backup files, see #649.
 set nobackup
 set nowritebackup
-
-" Give more space for displaying messages.
-set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
 set updatetime=300
 
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved.
-if has("nvim-0.5.0") || has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
 " other plugin before putting this into your config.
 inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ CheckBackspace() ? "\<Tab>" :
       \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice.
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 function! CheckBackspace() abort
   let col = col('.') - 1
@@ -92,12 +77,8 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-" Make <CR> auto-select the first completion item and notify coc.nvim to
-" format on enter, <cr> could be remapped by other vim plugin
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
 " Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
@@ -108,7 +89,7 @@ nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>ShowDocumentation()()<CR>
+nnoremap <silent> K :call ShowDocumentation()<CR>
 
 function! ShowDocumentation()
   if CocAction('hasProvider', 'hover')
@@ -123,11 +104,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
-
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Fix text color of rust analyzer popup window in coc.nvim
 " https://vi.stackexchange.com/a/24382
