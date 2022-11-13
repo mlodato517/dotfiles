@@ -48,8 +48,3 @@ selection:
 hints:
   mouse:
     enabled: false
-
-shell:
-  program: /usr/bin/fish
-  args:
-    - --login
