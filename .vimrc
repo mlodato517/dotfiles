@@ -232,8 +232,8 @@ set statusline+=%=
 set statusline+=\ %l:%c
 set statusline+=\ 
 
-" Map 'jk' to Esc so that exits insert mode courtesy of AHalle
-inoremap jk <ESC>
+" Map 'kj' to Esc so that exits insert mode courtesy of AHalle + ALehmer
+inoremap kj <ESC>
 
 " And disable my old way of doing things to help me learn!
 inoremap <C-[> <nop>
