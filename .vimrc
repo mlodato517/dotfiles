@@ -248,4 +248,6 @@ autocmd BufEnter * :syntax sync fromstart
 set wildmode=longest,list,full
 set wildmenu
 
+set mouse=
+
 " END EVERYTHING ELSE
