@@ -151,7 +151,7 @@ nnoremap <silent> ]g <cmd>lua vim.diagnostic.goto_next()<CR>
 set signcolumn=yes
 
 " Autoformat on save
-autocmd BufWritePre *.rs lua vim.lsp.buf.formatting_sync()
+autocmd BufWritePre *.rs lua vim.lsp.buf.format()
 
 " Improve coloring of pop up window
 " https://vim.fandom.com/wiki/Xterm256_color_names_for_console_Vim
