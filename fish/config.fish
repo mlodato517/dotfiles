@@ -15,9 +15,3 @@ if status is-login
 
   # ssh-add ~/.ssh/path_to_private_key
 end
-
-# https://github.com/fish-shell/fish-shell/issues/4434
-if status is-interactive
-and not set -q TMUX
-    exec tmux
-end

@@ -186,7 +186,7 @@ bar {
 exec --no-startup-id xset r rate 200 40
 
 # Configure monitors
-exec --no-startup-id xrandr --output DP-0 --primary --mode 3840x2160 --rate 60.00 --output eDP-1-1 --left-of DP-0 --mode 1920x1080 --rate 60.00
+# exec --no-startup-id xrandr --output DP-0 --primary --mode 3840x2160 --rate 60.00 --output eDP-1-1 --left-of DP-0 --mode 1920x1080 --rate 60.00
 
 # Map capslock to windows key
 exec --no-startup-id setxkbmap -option caps:super
