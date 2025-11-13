@@ -34,7 +34,8 @@ schemes:
         cyan:    '#93a1a1' # base1
         white:   '#fdf6e3' # base3
 
-colors: *dark
+# Might need higher contrast for my poor, old eyes?
+# colors: *dark
 
 font:
   size: 9.0
