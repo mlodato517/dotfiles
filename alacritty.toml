@@ -1,0 +1,9 @@
+[font]
+size = 18.0
+
+# [hints.mouse]
+# enabled = false
+
+[selection]
+save_to_clipboard = true
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"

@@ -13,5 +13,5 @@ if status is-login
       set -Ux SSH_AGENT_PID $SSH_AGENT_PID
   end
 
-  # ssh-add ~/.ssh/path_to_private_key
+  ssh-add ~/.ssh/github_id_ed25519
 end

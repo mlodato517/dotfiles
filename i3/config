@@ -41,7 +41,8 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec /home/mark/.cargo/bin/alacritty
+bindsym $mod+Return exec /home/mlodato/.cargo/bin/alacritty
+# bindsym $mod+Return exec i3-sensible-terminal
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -178,18 +179,24 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-        output primary
+        # output primary
         status_command i3status
 }
 
 # Configure keyboard repeat speed
 exec --no-startup-id xset r rate 200 40
 
-# Configure monitors
-# exec --no-startup-id xrandr --output DP-0 --primary --mode 3840x2160 --rate 60.00 --output eDP-1-1 --left-of DP-0 --mode 1920x1080 --rate 60.00
+# Set screen timeout to two hours from https://unix.stackexchange.com/a/655977
+exec --no-startup-id xset dpms 0 0 300 &
 
 # Map capslock to windows key
 exec --no-startup-id setxkbmap -option caps:super
+
+# Set up dual monitors
+# exec --no-startup-id xrandr --output eDP-1 --mode 1920x1200 --rate 60 --output DP-1 --primary --mode 3840x2160 --rate 60 --right-of eDP-1
+# exec --no-startup-id xrandr --output eDP-1 --auto --output DP-1-1 --primary --auto --left-of eDP-1 --scale 0.5x0.5 --filter nearest
+# exec --no-startup-id xrandr --output eDP-1 --auto --output DP-3-1 --primary --auto --left-of eDP-1
+exec --no-startup-id xrandr --output eDP-1 --auto --output DP-3-1 --primary --mode 1920x1080 --left-of eDP-1 --filter nearest
 
 # Hotkey for screen lock
 bindsym $mod+Control+l exec i3lock -e -c 000000
@@ -198,7 +205,7 @@ bindsym $mod+Control+l exec i3lock -e -c 000000
 # to get external 4k monitor correct even though nothing goes in here.
 
 # Start redshift for redness
-exec --no-startup-id redshift -O 2500
+exec --no-startup-id redshift -O 3500
 
 # https://i3wm.org/docs/userguide.html#_scratchpad
 # Make the currently focused window a scratchpad
@@ -208,7 +215,7 @@ bindsym $mod+Shift+minus move scratchpad
 bindsym $mod+minus scratchpad show
 
 # Start bluetooth ... thing
-exec --no-startup-id blueman-applet
+# exec --no-startup-id blueman-applet
 
 # From Andrew - allow easily locking/shutting down, etc.
 # From https://gitlab.manjaro.org/packages/community/i3/i3exit.
